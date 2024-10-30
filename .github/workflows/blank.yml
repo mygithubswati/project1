@@ -1,0 +1,35 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # main
+  pull_request:
+    branches:
+      - main  # Optional: Trigger on PRs to main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'  # Specify the Java version your application uses
+          distribution: 'temurin'  # Use AdoptOpenJDK
+
+      - name: Build with Maven
+        run: mvn clean install  # Change if using Gradle or other build tools
+
+      - name: Trigger Jenkins Job
+        env:
+          JENKINS_URL: ${{ secrets.JENKINS_URL }}  # \ProgramData\Jenkins\.jenkins\workspace\Project1
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}  # Swati waghmare
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}  # 1137f12e8ad33560969cbdc9e31480a778
+        run: |
+          curl -X POST "$JENKINS_URL/job/your-job-name/build?token=your-job-token" \
+            --user "$JENKINS_USER:$JENKINS_TOKEN"
