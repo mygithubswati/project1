@@ -27,9 +27,9 @@ jobs:
 
       - name: Trigger Jenkins Job
         env:
-          JENKINS_URL: ${{ secrets.JENKINS_URL }}  # Your Jenkins URL
-          JENKINS_USER: ${{ secrets.JENKINS_USER }}  # Jenkins username
-          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}  # Jenkins API token
+          JENKINS_URL: ${{ secrets.JENKINS_URL }}  # http://localhost:8080/job/Project1/
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}  # swati waghmare
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}  # 1137f12e8ad33560969cbdc9e31480a778
         run: |
           curl -X POST "$JENKINS_URL/job/your-job-name/build?token=your-job-token" \
             --user "$JENKINS_USER:$JENKINS_TOKEN"
